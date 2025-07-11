@@ -7,6 +7,8 @@ import LoginModal from '@/components/LoginModal';
 import ContactInfoCards from '@/components/ContactInfoCards';
 import ContactForm from '@/components/ContactForm';
 import SupportOptions from '@/components/SupportOptions';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import CardAnimation from '@/components/CardAnimation';
 
 interface SearchFilters {
   location: string;
@@ -32,8 +34,19 @@ const Contact = () => {
       />
       
       {/* Hero Section */}
-      <section className="relative bg-primary text-primary-foreground py-20 overflow-hidden">
+      <section className="relative bg-primary text-primary-foreground py-20 hero-animation">
+        <AnimatedBackground />
         <div className="absolute inset-0 bg-primary/10"></div>
+        
+        {/* Hero Image */}
+        <div className="absolute inset-0 opacity-20">
+          <img 
+            src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"
+            alt="Contact us - Beautiful ocean waves"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 hover:scale-105 transition-transform duration-300">Get in Touch</h1>
@@ -45,14 +58,20 @@ const Contact = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <ContactInfoCards />
+      <CardAnimation>
+        <ContactInfoCards />
+      </CardAnimation>
 
       {/* Contact Form & Support Options */}
       <section className="py-20 bg-card">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-            <ContactForm />
-            <SupportOptions />
+            <CardAnimation delay={200}>
+              <ContactForm />
+            </CardAnimation>
+            <CardAnimation delay={400}>
+              <SupportOptions />
+            </CardAnimation>
           </div>
         </div>
       </section>

@@ -5,6 +5,8 @@ import Footer from '@/components/Footer';
 import PropertyCard from '@/components/PropertyCard';
 import SearchModal from '@/components/SearchModal';
 import LoginModal from '@/components/LoginModal';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import CardAnimation from '@/components/CardAnimation';
 import { mockProperties, Property } from '@/data/mockProperties';
 import { Filter, Grid, List, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -53,8 +55,19 @@ const Properties = () => {
       />
       
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-primary text-primary-foreground py-20 hero-animation">
+        <AnimatedBackground />
+        
+        {/* Hero Image */}
+        <div className="absolute inset-0 opacity-30">
+          <img 
+            src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80"
+            alt="Explore properties - Mountain landscape"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        <div className="relative container mx-auto px-4">
           <div className="text-center animate-fade-in">
             <h1 className="text-5xl font-bold mb-4 hover:scale-105 transition-transform duration-300">Explore Properties</h1>
             <p className="text-xl opacity-90 max-w-2xl mx-auto hover:opacity-100 transition-opacity duration-300">
@@ -67,37 +80,39 @@ const Properties = () => {
       {/* Filters Section */}
       <section className="py-8 bg-card border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 hover:shadow-lg transition-all duration-300 hover:scale-105 hover:border-primary"
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                Filters
-              </Button>
-              <span className="text-muted-foreground hover:text-foreground transition-colors duration-300">{filteredProperties.length} properties found</span>
+          <CardAnimation>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-2 hover:shadow-lg transition-all duration-300 hover:scale-105 hover:border-primary"
+                >
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Filters
+                </Button>
+                <span className="text-muted-foreground hover:text-foreground transition-colors duration-300">{filteredProperties.length} properties found</span>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={viewMode === 'grid' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('grid')}
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  <Grid className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            
-            <div className="flex items-center gap-2">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="transition-all duration-300 hover:scale-105"
-              >
-                <Grid className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="transition-all duration-300 hover:scale-105"
-              >
-                <List className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          </CardAnimation>
         </div>
       </section>
 
@@ -110,25 +125,23 @@ const Properties = () => {
               : 'space-y-6'
           }`}>
             {filteredProperties.map((property, index) => (
-              <div 
-                key={property.id} 
-                className="animate-fade-in hover:scale-105 transition-transform duration-300"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+              <CardAnimation key={property.id} delay={index * 100}>
                 <PropertyCard 
                   property={property} 
                   onClick={handlePropertyClick}
                 />
-              </div>
+              </CardAnimation>
             ))}
           </div>
           
           {filteredProperties.length === 0 && (
-            <div className="text-center py-12 animate-fade-in">
-              <Filter className="h-16 w-16 text-muted-foreground mx-auto mb-4 hover:text-primary transition-colors duration-300" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">No properties found</h3>
-              <p className="text-muted-foreground">Try adjusting your search filters</p>
-            </div>
+            <CardAnimation>
+              <div className="text-center py-12">
+                <Filter className="h-16 w-16 text-muted-foreground mx-auto mb-4 hover:text-primary transition-colors duration-300" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No properties found</h3>
+                <p className="text-muted-foreground">Try adjusting your search filters</p>
+              </div>
+            </CardAnimation>
           )}
         </div>
       </section>

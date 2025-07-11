@@ -4,6 +4,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SearchModal from '@/components/SearchModal';
 import LoginModal from '@/components/LoginModal';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import CardAnimation from '@/components/CardAnimation';
 import { 
   Home, 
   Shield, 
@@ -98,9 +100,20 @@ const Services = () => {
         onLoginClick={() => setIsLoginOpen(true)}
       />
       
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-ocean-600 via-coral-500 to-sage-600 text-white py-20">
+      {/* Hero Section - Removed gradient, added solid color and image */}
+      <section className="relative bg-primary text-white py-20 hero-animation">
+        <AnimatedBackground />
         <div className="absolute inset-0 bg-black/20"></div>
+        
+        {/* Hero Image */}
+        <div className="absolute inset-0 opacity-30">
+          <img 
+            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=80"
+            alt="Professional services - Person using laptop"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Services</h1>
@@ -114,61 +127,61 @@ const Services = () => {
       {/* Main Services */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Why Choose StayFinder?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We provide comprehensive services to make your travel experience seamless and memorable
-            </p>
-          </div>
+          <CardAnimation>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6">Why Choose StayFinder?</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                We provide comprehensive services to make your travel experience seamless and memorable
+              </p>
+            </div>
+          </CardAnimation>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {mainServices.map((service, index) => (
-              <div 
-                key={service.title}
-                className={`p-8 rounded-2xl border-2 ${service.color} hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in`}
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="text-center mb-6">
-                  <service.icon className="h-16 w-16 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{service.description}</p>
+              <CardAnimation key={service.title} delay={index * 200}>
+                <div className={`p-8 rounded-2xl border-2 ${service.color} hover:shadow-xl transition-all duration-300 transform hover:scale-105`}>
+                  <div className="text-center mb-6">
+                    <service.icon className="h-16 w-16 mx-auto mb-4" />
+                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                  </div>
+                  
+                  <ul className="space-y-3">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center">
+                        <Star className="h-4 w-4 mr-3 flex-shrink-0" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <ul className="space-y-3">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center">
-                      <Star className="h-4 w-4 mr-3 flex-shrink-0" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </CardAnimation>
             ))}
           </div>
         </div>
       </section>
 
       {/* Amenities Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Premium Amenities</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Enjoy world-class amenities and services at our featured properties
-            </p>
-          </div>
+          <CardAnimation>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6">Premium Amenities</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Enjoy world-class amenities and services at our featured properties
+              </p>
+            </div>
+          </CardAnimation>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
             {amenities.map((amenity, index) => (
-              <div 
-                key={amenity.name}
-                className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-fade-in group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <amenity.icon className="h-12 w-12 mx-auto mb-4 text-ocean-600 group-hover:text-coral-500 transition-colors duration-300" />
-                <h3 className="font-semibold mb-2">{amenity.name}</h3>
-                <p className="text-sm text-gray-600">{amenity.description}</p>
-              </div>
+              <CardAnimation key={amenity.name} delay={index * 100}>
+                <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105 group">
+                  <amenity.icon className="h-12 w-12 mx-auto mb-4 text-ocean-600 group-hover:text-coral-500 transition-colors duration-300" />
+                  <h3 className="font-semibold mb-2">{amenity.name}</h3>
+                  <p className="text-sm text-gray-600">{amenity.description}</p>
+                </div>
+              </CardAnimation>
             ))}
           </div>
         </div>
@@ -177,53 +190,55 @@ const Services = () => {
       {/* Host Services */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Services for Hosts</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Professional services to help you maximize your property's potential
-            </p>
-          </div>
+          <CardAnimation>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6">Services for Hosts</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Professional services to help you maximize your property's potential
+              </p>
+            </div>
+          </CardAnimation>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {hostServices.map((service, index) => (
-              <div 
-                key={service.title}
-                className="p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
-                  <span className="text-ocean-600 font-semibold bg-ocean-50 px-3 py-1 rounded-full text-sm">
-                    {service.price}
-                  </span>
+              <CardAnimation key={service.title} delay={index * 150}>
+                <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
+                    <span className="text-ocean-600 font-semibold bg-ocean-50 px-3 py-1 rounded-full text-sm">
+                      {service.price}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">{service.description}</p>
                 </div>
-                <p className="text-gray-600 leading-relaxed">{service.description}</p>
-              </div>
+              </CardAnimation>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-ocean text-white">
+      <section className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join thousands of satisfied travelers and hosts who trust StayFinder for their accommodation needs
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                className="bg-white text-ocean-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-                onClick={() => setIsSearchOpen(true)}
-              >
-                Book Your Stay
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-ocean-700 transition-all duration-300 transform hover:scale-105">
-                List Your Property
-              </button>
+          <CardAnimation>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
+              <p className="text-xl mb-8 opacity-90">
+                Join thousands of satisfied travelers and hosts who trust StayFinder for their accommodation needs
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button 
+                  className="bg-white text-ocean-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+                  onClick={() => setIsSearchOpen(true)}
+                >
+                  Book Your Stay
+                </button>
+                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-ocean-700 transition-all duration-300 transform hover:scale-105">
+                  List Your Property
+                </button>
+              </div>
             </div>
-          </div>
+          </CardAnimation>
         </div>
       </section>
 
