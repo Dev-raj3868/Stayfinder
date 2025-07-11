@@ -62,7 +62,13 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5"></div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=1200&h=800&fit=crop)',
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-primary/80"></div>
         <div className="relative container mx-auto px-4 py-20 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in hover:scale-105 transition-transform duration-300">
             Find Your Perfect Stay

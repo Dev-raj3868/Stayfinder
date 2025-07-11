@@ -59,7 +59,13 @@ const About = () => {
       
       {/* Hero Section */}
       <section className="relative bg-primary text-primary-foreground py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5"></div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1200&h=800&fit=crop)',
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-primary/80"></div>
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 hover:scale-105 transition-transform duration-300">Our Story</h1>
